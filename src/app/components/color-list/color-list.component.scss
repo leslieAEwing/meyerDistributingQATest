@@ -1,0 +1,19 @@
+.color-swatch-list {
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid #FFF;
+  transition: all .25s ease;
+
+  &.selected {
+    border: 2px solid #000;
+  }
+
+  &:hover {
+    transform: scale(1.5);
+  }
+}

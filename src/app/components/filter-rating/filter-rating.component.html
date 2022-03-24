@@ -1,0 +1,6 @@
+<div class="form-check" *ngFor="let r of ratingList; index as i">
+  <input class="form-check-input" type="checkbox" [value]="r" [id]="getInputId(i)" (click)="ratingFilter($event)">
+  <label class="form-check-label" [for]="getInputId(i)">
+    {{ r }}
+  </label>
+</div>

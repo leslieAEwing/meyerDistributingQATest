@@ -1,0 +1,7 @@
+<p>
+  <span *ngFor="let s of numberOfStars" class="star-rating">
+    <fa-icon *ngIf="s >= flooredStar" [icon]="regularStar"></fa-icon>
+    <fa-icon *ngIf="s < flooredStar" [icon]="filledStar"></fa-icon>
+  </span>
+  ({{this.starRating}})
+</p>

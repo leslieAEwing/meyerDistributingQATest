@@ -1,0 +1,102 @@
+<div class="container">
+  <button class="btn btn-primary btn-sm mb-2 mt-3" (click)="toggleFilter()">Filter <fa-icon [icon]="iconRight">
+    </fa-icon>
+  </button>
+  <div id="filterDiv" class="border-bottom mb-3 pb-3" [class]="openFilters ? 'filter-open' : ''">
+    <p><strong>Filter By:</strong></p>
+    <button class="btn btn-primary btn-sm filter-btn" (click)="toggleFilter()">Filter <fa-icon [icon]="iconLeft">
+      </fa-icon>
+    </button>
+    <div *ngIf="productProject.filters.length > 0">
+      <div class="card mb-4">
+        <div class="card-title border-bottom px-3 py-2 fw-bold mb-0">Applied Filters</div>
+        <div class="card-body">
+          <span *ngFor="let f of productProject.filters" class="applied-filter bg-secondary text-white me-2">
+            {{appliedFilterText(f)}}
+          </span>
+          <button class="btn btn-secondary btn-sm mt-3 d-block" (click)="removeFilters()">Remove applied
+            filters</button>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6">
+        <div class="card h-100">
+          <div class="card-title border-bottom px-3 py-2 fw-bold mb-0">Category</div>
+          <div class="card-body">
+            <app-filter [categoryList]="productProject.categories" categoryType="category" title="Categories"
+              (filterCategory)="filterCategories($event)">
+            </app-filter>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card h-100">
+          <div class="card-title border-bottom px-3 py-2 fw-bold mb-0">Types</div>
+          <div class="card-body">
+            <app-filter [categoryList]="productProject.productTypes" categoryType="type" title="Project Types"
+              (filterCategory)="filterProductTypes($event)">
+            </app-filter>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="card h-100">
+          <div class="card-title border-bottom px-3 py-2 fw-bold mb-0">Ratings</div>
+          <div class="card-body">
+            <div class="form-check" *ngFor="let c of counter(6); index as i">
+              <input class="form-check-input" type="checkbox" [value]="i" [id]="getId('filterRating', i)"
+                (click)="filterRating($event)">
+              <label class="form-check-label" [for]="getId('filterRating', i)">
+                {{i}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card h-100">
+          <div class="card-title border-bottom px-3 py-2 fw-bold mb-0">Price</div>
+          <div class="card-body">
+            <div class="form-check" *ngFor="let p of productProject.priceRanges; index as i">
+              <input class="form-check-input" type="checkbox" [value]="i" [id]="getId('priceRating', i)"
+                (click)="filterPrice($event)">
+              <label class="form-check-label" [for]="getId('priceRating', i)">
+                ${{p.min}} {{i < productProject.priceRanges.length-1 ? '- ' + p.max : '' }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-top mt-4 pt-4 pb-4">
+      <div class="card">
+        <div class="card-title border-bottom px-3 py-2 fw-bold mb-0">Colors</div>
+        <div class="card-body">
+          <color-list [colorHueList]="productProject.colorFilters" (updateColorFilters)="filterColor($event)">
+          </color-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination" *ngIf="productProject.pagination.numberOfPages > 1">
+      <li *ngFor="let num of counter(productProject.pagination.numberOfPages); let i = index" class="page-item"
+        [class]="productProject.pagination.currentPage == i ? 'active' : ''">
+        <button class="page-link" (click)="paginationClick(i)">{{i + 1}}</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="productProject.products.length > 0; else noProds" class="row">
+    <p class="text-center">{{pageText()}}</p>
+    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let prod of productProject.products">
+      <product [product]="prod" (openModal)="openModal($event)"></product>
+    </div>
+  </div>
+  <ng-template #noProds>
+    <p>No projects</p>
+  </ng-template>
+  <div (click)="toggleFilter()" class="overlay" [class]="openFilters ? 'overlay-open' :''"></div>
+</div>

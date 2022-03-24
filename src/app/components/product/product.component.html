@@ -1,0 +1,13 @@
+<div class="card-outer">
+  <div class="card">
+    <img [src]="product.image_link" class="card-img-top" [alt]="product.name">
+    <div class="card-body">
+      <p class="text-center text-uppercase mb-0"><strong>{{product.name}}</strong></p>
+      <div class="card-inner mt-auto text-center pt-3">
+        <h3>${{product.price}}</h3>
+        <rating-stars [starRating]="product.rating"></rating-stars>
+        <button class="product-btn btn btn-primary" (click)="openModal.emit(product)">View More</button>
+      </div>
+    </div>
+  </div>
+</div>

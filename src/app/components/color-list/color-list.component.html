@@ -1,0 +1,4 @@
+  <div class="color-swatch-list d-flex mt-3">
+    <button *ngFor="let c of colorHueList; index as i" [style]="getStyles(c.color)" class="color-swatch"
+      [class]="c.isSelected ? 'selected' : ''" (click)="updateColorFilters.emit(c)"></button>
+  </div>

@@ -2,8 +2,8 @@ import { ProductColor } from './product-color';
 export interface Product {
   id: Number;
   brand: string | null;
-  name: string | null;
-  price: string | null;
+  name: string;
+  price: string;
   image_link: string | null;
   product_link: string | null;
   website_link: string | null;

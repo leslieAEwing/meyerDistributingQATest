@@ -4,4 +4,5 @@ export enum FilterTypes {
   Category = 2,
   Types = 3,
   Color = 4,
+  Name = 5,
 }

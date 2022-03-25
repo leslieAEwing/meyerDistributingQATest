@@ -1,7 +1,33 @@
 <div class="container">
-  <button class="btn btn-primary btn-sm mb-2 mt-3" (click)="toggleFilter()">Filter <fa-icon [icon]="iconRight">
-    </fa-icon>
-  </button>
+  <div class="row mb-3">
+    <div class="col-3">
+      <button class="btn btn-primary btn-sm mb-2 mt-3" (click)="toggleFilter()">Filter <fa-icon [icon]="iconRight">
+        </fa-icon></button>
+    </div>
+    <div id="sorting-selects" class="f-xs col-9 d-flex justify-content-end align-items-center">
+      <div class="form-group d-block d-sm-flex justify-content-end align-items-center">
+        <label class="me-2">Sort by:</label>
+        <select class="form-select f-xs me-4" (change)="sortProductList($event)">
+          <option [value]="filterTypes.Name" [attr.data-direction]="sortFilterEnum.Ascend">Name (A-Z)</option>
+          <option [value]="filterTypes.Name" [attr.data-direction]="sortFilterEnum.Descend">Name (Z-A)</option>
+          <option [value]="filterTypes.Rating" [attr.data-direction]="sortFilterEnum.Descend">Rating (high - low)
+          </option>
+          <option [value]="filterTypes.Rating" [attr.data-direction]="sortFilterEnum.Ascend">Rating (low - high)
+          </option>
+          <option [value]="filterTypes.Price" [attr.data-direction]="sortFilterEnum.Descend">Price (high - low)</option>
+          <option [value]="filterTypes.Price" [attr.data-direction]="sortFilterEnum.Ascend">Price (low - high)</option>
+        </select>
+      </div>
+      <div class="form-group d-block d-sm-flex justify-content-end align-items-center">
+        <label class="me-2"># of pages:</label>
+        <select class="form-select f-xs" (change)="sortProducts($event)">
+          <option value="9">9</option>
+          <option value="18">18</option>
+          <option value="27">27</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div id="filterDiv" class="border-bottom mb-3 pb-3" [class]="openFilters ? 'filter-open' : ''">
     <p><strong>Filtering By:</strong></p>
     <button class="btn btn-primary btn-sm filter-btn" (click)="toggleFilter()">Filter <fa-icon [icon]="iconLeft">

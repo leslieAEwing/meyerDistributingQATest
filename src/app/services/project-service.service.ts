@@ -8,12 +8,14 @@ import { FilterTypes } from '../models/filter-types';
 import { ProductPriceRange } from '../models/product-price-range';
 import { ProductColor } from '../models/product-color';
 import { ProductColorFilter } from '../models/product-color-filter';
+import { SortFilter } from '../models/sort-filter';
+import { SortFilterDirection } from '../models/sort-filter-direction';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectServiceService {
-  numberOfProducts: number = 10;
+  numberOfProducts: number = 9;
   currentPage: number = 0;
   allProducts: Product[] = PRODUCTS;
   filteredProducts: Product[] = PRODUCTS;
@@ -37,13 +39,22 @@ export class ProjectServiceService {
     },
   ];
 
-  allProductColorFilters: ProductColorFilter[] = [];
-
+  sortFilterDirection = SortFilterDirection;
   filterTypes = FilterTypes;
+
+  allProductColorFilters: ProductColorFilter[] = [];
+  currentFilter: SortFilter = {
+    name: this.filterTypes.Name,
+    direction: this.sortFilterDirection.Ascend,
+  };
+
   constructor() {}
 
   getInitialProjectObject(): ProductProject {
     this.allProductColorFilters = this.getAllProductColorsFilters();
+    this.filteredProducts = this.filteredProducts.sort(
+      (a: Product, b: Product) => a.name.localeCompare(b.name)
+    );
     return this.updateProductProject();
   }
 
@@ -101,6 +112,36 @@ export class ProjectServiceService {
     this.filters = [];
     this.currentPage = 0;
     this.filteredProducts = this.allProducts;
+    return this.updateProductProject();
+  }
+
+  sortProducts(sortOption: SortFilter): ProductProject {
+    this.currentPage = 0;
+
+    if (sortOption.name == this.filterTypes.Name) {
+      this.filteredProducts = this.filteredProducts.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    } else if (sortOption.name == this.filterTypes.Price) {
+      this.filteredProducts = this.filteredProducts.sort(
+        (a, b) => Number(a.price) - Number(b.price)
+      );
+    } else if (sortOption.name == this.filterTypes.Rating) {
+      this.filteredProducts = this.filteredProducts.sort(
+        (a, b) => a.rating - b.rating
+      );
+    }
+
+    if (sortOption.direction == this.sortFilterDirection.Descend) {
+      this.filteredProducts = this.filteredProducts.reverse();
+    }
+
+    return this.updateProductProject();
+  }
+
+  changeNumberProducts(newNumberOfProducts: number): ProductProject {
+    this.numberOfProducts = newNumberOfProducts;
+    this.currentPage = 0;
     return this.updateProductProject();
   }
 
@@ -163,7 +204,6 @@ export class ProjectServiceService {
       productTypes: this.getAllProductTypes(),
       priceRanges: this.priceRanges,
       colors: this.getAllProductColors(),
-      //colorFilters: this.getAllProductColorsFilters(),
       colorFilters: this.allProductColorFilters,
     };
 

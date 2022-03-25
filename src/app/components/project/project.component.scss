@@ -2,13 +2,13 @@
   position: fixed;
   background: #FFF;
   left: -100%;
-  top: 57px;
+  top: 0px;
   width: 50%;
   z-index: 100;
   padding: 10px 20px;
   box-shadow: 10px 0px 10px rgba(0, 0, 0, .2);
   transition: all .5s ease;
-  height: calc(100% - 57px);
+  height: 100%;
   overflow-y: scroll;
 
   .filter-btn {
@@ -22,9 +22,17 @@
   }
 
   @media(max-width: 767px) {
-    width: 75%;
+    width: 85%;
   }
 }
+
+#sorting-selects {
+
+  .form-select {
+    width: auto;
+  }
+}
+
 
 .overlay {
   position: fixed;

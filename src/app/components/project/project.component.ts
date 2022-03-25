@@ -16,6 +16,8 @@ import { ProductColor } from '../../models/product-color';
 import { ProductPriceRange } from '../../models/product-price-range';
 import { Pagination } from '../../models/pagination';
 import { ProductColorFilter } from 'src/app/models/product-color-filter';
+import { SortFilter } from 'src/app/models/sort-filter';
+import { SortFilterDirection } from 'src/app/models/sort-filter-direction';
 
 @Component({
   selector: 'project',
@@ -27,6 +29,7 @@ export class ProjectComponent implements OnInit {
 
   counter = Array;
   filterTypes = FilterTypes;
+  sortFilterEnum = SortFilterDirection;
   iconDown = faChevronDown;
   iconUp = faChevronUp;
   iconLeft = faChevronLeft;
@@ -41,6 +44,29 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.productProject = this.projectService.getInitialProjectObject();
+  }
+
+  sortProductList(e: any) {
+    var selectedIndex = e.target.options.selectedIndex;
+    var dataDirection =
+      e.target.options[selectedIndex].getAttribute('data-direction');
+    if (dataDirection == '' || !dataDirection) {
+      dataDirection = this.sortFilterEnum.Ascend;
+    }
+    const sortFilter: SortFilter = {
+      name: e.target.value,
+      direction: dataDirection,
+    };
+    console.log('sortFilter', sortFilter);
+
+    this.productProject = this.projectService.sortProducts(sortFilter);
+  }
+
+  sortProducts(e: any) {
+    const newNumber = e.target.value;
+    this.productProject = this.projectService.changeNumberProducts(
+      Number(newNumber)
+    );
   }
 
   productColor(color: ProductColor): string {

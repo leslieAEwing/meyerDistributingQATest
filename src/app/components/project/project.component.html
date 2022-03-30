@@ -21,9 +21,9 @@
       <div class="form-group d-block d-sm-flex justify-content-end align-items-center">
         <label class="me-2"># of pages:</label>
         <select class="form-select f-xs" (change)="sortProducts($event)">
-          <option value="9">9</option>
-          <option value="18">18</option>
-          <option value="27">27</option>
+          <option value="8">8</option>
+          <option value="16">16</option>
+          <option value="24">24</option>
         </select>
       </div>
     </div>
@@ -115,9 +115,9 @@
       </li>
     </ul>
   </div>
+  <p class="text-center">{{pageText()}}</p>
   <div *ngIf="productProject.products.length > 0; else noProds" class="row">
-    <p class="text-center">{{pageText()}}</p>
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let prod of productProject.products">
+    <div class="col-12 col-md-6 col-lg-3 mb-4" *ngFor="let prod of productProject.products">
       <product [product]="prod" (openModal)="openModal($event)"></product>
     </div>
   </div>

@@ -15,7 +15,7 @@ import { SortFilterDirection } from '../models/sort-filter-direction';
   providedIn: 'root',
 })
 export class ProjectServiceService {
-  numberOfProducts: number = 9;
+  numberOfProducts: number = 8;
   currentPage: number = 0;
   allProducts: Product[] = PRODUCTS;
   filteredProducts: Product[] = PRODUCTS;

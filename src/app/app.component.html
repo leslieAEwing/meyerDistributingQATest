@@ -1,13 +1,15 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand">Maybelline Products</a>
+<div class="body-area">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand">Maybelline Products</a>
+    </div>
+  </nav>
+  <div id="mainBody">
+    <router-outlet></router-outlet>
   </div>
-</nav>
-<div id="mainBody" class="pb-4">
-  <router-outlet></router-outlet>
-</div>
-<div class="f-xs bg-dark p-3 text-light">
-  <div class="container">
-    @ Copyright {{year}}. All rights reserved.
+  <div class="footer-area f-xs bg-dark p-3 text-light">
+    <div class="container">
+      @ Copyright {{year}}. All rights reserved.
+    </div>
   </div>
 </div>

@@ -10,3 +10,18 @@ body.filter-open {
 .f-xs {
   font-size: .75rem;
 }
+
+html,
+body {
+  height: 100%;
+}
+
+.body-area {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-area {
+  margin-top: auto;
+}
